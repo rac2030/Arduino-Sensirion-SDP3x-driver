@@ -9,28 +9,47 @@
  ******************************************************************************/
 
 /**********************************************************
- * GetPressureDiff
+ * getPressureDiff
  *  Gets the current Pressure Differential from the sensor.
  *
  * @return float - The Pressure in Pascal
  **********************************************************/
-float SDP3xClass::GetPressureDiff(void)
+float SDP3xClass::getPressureDiff(void)
 {
-  return (float)(readSensor());
+  int16_t dp_ticks;
+  // merge chars to one int
+  dp_ticks = BIU16(readSensor(), 0);
+  // adapt scale factor according to datasheet (here for version SDP31)
+  float dp_scale = 60.0;
+  return dp_ticks/dp_scale;
 }
 
+/**********************************************************
+ * getTemparature
+ *  Gets the current Temparature from the sensor.
+ *
+ * @return float - The Temparature
+ **********************************************************/
+float SDP3xClass::getTemparature(void)
+{
+  int16_t  temperature_ticks;
+  // merge chars to one int
+  temperature_ticks = BIU16(readSensor(), 3);
+  float t_scale = 200.0;
+  return temperature_ticks/t_scale;
+}
 
 /******************************************************************************
- * Private Functions
+ * readSensor
+ *  Gets RAW sensor data
+ *
+ * @return uint8_t - RAW sensor data
  ******************************************************************************/
-
-int16_t SDP3xClass::readSensor(void)
+uint8_t SDP3xClass::readSensor(void)
 {
-    uint8_t readData[6];
+  uint8_t readData[6];
   uint8_t rxByteCount=0;
-  int16_t dp_ticks;
-  int16_t  temperature_ticks;
-
+  
   // triggered mode with 50ms conversion time
   const uint8_t SDP_MEASUREMENT_COMMAND_0 = 0x36;
   const uint8_t SDP_MEASUREMENT_COMMAND_1 = 0x2F;
@@ -50,15 +69,7 @@ int16_t SDP3xClass::readSensor(void)
       readData[rxByteCount] = Wire.read();
       rxByteCount++;
   }
-  // merge chars to one int
-  dp_ticks = BIU16(readData, 0);
-  //temperature_ticks = BIU16(readData, 3); 
-  //TODO we can also get temperature from it with (temperature_ticks/t_scale)
-  // send data to serial interface with tab as spacer
-// adapt scale factor according to datasheet (here for version SDP31)
-float dp_scale = 60.0;
-float t_scale = 200.0;
-    return dp_ticks/dp_scale;
+  return readData;    
 }
 
 SDP3xClass SDP3x;

@@ -1,2 +1,4 @@
 SDP3x	KEYWORD1
-GetPressureDiff	KEYWORD2
+getPressureDiff	KEYWORD2
+getTemperature KEYWORD2
+readSensor KEYWORD2
