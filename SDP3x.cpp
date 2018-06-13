@@ -25,12 +25,12 @@ float SDP3xClass::getPressureDiff(void)
 }
 
 /**********************************************************
- * getTemparature
- *  Gets the current Temparature from the sensor.
+ * getTemperature
+ *  Gets the current Temperature from the sensor.
  *
- * @return float - The Temparature
+ * @return float - The Temperature
  **********************************************************/
-float SDP3xClass::getTemparature(void)
+float SDP3xClass::getTemperature(void)
 {
   int16_t  temperature_ticks;
   // merge chars to one int
