@@ -4,6 +4,9 @@
 	// convert two 8 bit values to one word
 	#define BIU16(data, start) (((uint16_t)(data)[start]) << 8 | ((data)[start + 1]))
 
+	// data length of result from I2C
+	#define RESULT_DATA_LENGTH 6
+
 	// SDP3x sensor I2C address
 	// The adress can be overwritten by defining SDP3x_I2C_ADDRESS in your sketch directly
 	#ifndef SDP3x_I2C_ADDRESS
@@ -18,7 +21,7 @@
 	class SDP3xClass
 	{
 	  public:
-	  	uint8_t readSensor(void);
+	  	uint8_t readSensor(uint8_t* readData, uint8_t size);
 	  public:
 	  	float getPressureDiff(void);
 	  public:

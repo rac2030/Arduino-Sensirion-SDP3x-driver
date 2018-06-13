@@ -17,8 +17,11 @@
 float SDP3xClass::getPressureDiff(void)
 {
   int16_t dp_ticks;
+  uint8_t readData[RESULT_DATA_LENGTH] = { 0 };
+
+  readSensor(readData, RESULT_DATA_LENGTH);
   // merge chars to one int
-  dp_ticks = BIU16(readSensor(), 0);
+  dp_ticks = BIU16(readData, 0);
   // adapt scale factor according to datasheet (here for version SDP31)
   float dp_scale = 60.0;
   return dp_ticks/dp_scale;
@@ -33,8 +36,11 @@ float SDP3xClass::getPressureDiff(void)
 float SDP3xClass::getTemperature(void)
 {
   int16_t  temperature_ticks;
+  uint8_t readData[RESULT_DATA_LENGTH] = { 0 };
+
+  readSensor(readData, RESULT_DATA_LENGTH);
   // merge chars to one int
-  temperature_ticks = BIU16(readSensor(), 3);
+  temperature_ticks = BIU16(readData, 3);
   float t_scale = 200.0;
   return temperature_ticks/t_scale;
 }
@@ -43,11 +49,12 @@ float SDP3xClass::getTemperature(void)
  * readSensor
  *  Gets RAW sensor data
  *
- * @return uint8_t - RAW sensor data
+ * @param readData - a data buffer to store data into
+ * @param size     - the size of said data buffer
+ * @return uint8_t - number of bytes read
  ******************************************************************************/
-uint8_t SDP3xClass::readSensor(void)
+uint8_t SDP3xClass::readSensor(uint8_t* readData, uint8_t size)
 {
-  uint8_t readData[6];
   uint8_t rxByteCount=0;
   
   // triggered mode with 50ms conversion time
@@ -63,13 +70,13 @@ uint8_t SDP3xClass::readSensor(void)
   delay(50);
 
   // 2 bytes DP, 1 CRC, 2 bytes T, 1 CRC
-  Wire.requestFrom(SDP3x_I2C_ADDRESS, (uint8_t)6);
+  Wire.requestFrom(SDP3x_I2C_ADDRESS, (uint8_t)size);
   rxByteCount = 0;
   while (Wire.available()) { // wait till all arrive
       readData[rxByteCount] = Wire.read();
       rxByteCount++;
   }
-  return readData;    
+  return rxByteCount;
 }
 
 SDP3xClass SDP3x;
