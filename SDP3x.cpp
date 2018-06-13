@@ -70,7 +70,7 @@ uint8_t SDP3xClass::readSensor(uint8_t* readData, uint8_t size)
   delay(50);
 
   // 2 bytes DP, 1 CRC, 2 bytes T, 1 CRC
-  Wire.requestFrom(SDP3x_I2C_ADDRESS, (uint8_t)size);
+  Wire.requestFrom((uint8_t)SDP3x_I2C_ADDRESS, size);
   rxByteCount = 0;
   while (Wire.available()) { // wait till all arrive
       readData[rxByteCount] = Wire.read();
