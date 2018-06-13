@@ -18,7 +18,7 @@
 	class SDP3xClass
 	{
 	  public:
-	  	int16_t readSensor(void);
+	  	uint8_t readSensor(void);
 	  public:
 	  	float getPressureDiff(void);
 	  public:
