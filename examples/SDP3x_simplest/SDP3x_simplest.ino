@@ -1,3 +1,5 @@
+#include <Wire.h>
+
 // To set a different I2C address, uncomment the define
 // #define SDP3x_I2C_ADDRESS 0x21
 #include "SDP3x.h"
