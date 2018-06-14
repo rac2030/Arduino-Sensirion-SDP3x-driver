@@ -56,11 +56,14 @@ float SDP3xClass::getTemperature(void)
 uint8_t SDP3xClass::readSensor(uint8_t* readData, uint8_t size)
 {
   uint8_t rxByteCount=0;
-  uint8_t txData[2] = {SDP_MEASUREMENT_COMMAND_0, SDP_MEASUREMENT_COMMAND_1};
+
+  uint8_t txData[COMMAND_DATA_LENGTH] =
+    {SDP_MEASUREMENT_COMMAND_0, SDP_MEASUREMENT_COMMAND_1};
 
   Wire.beginTransmission(SDP3x_I2C_ADDRESS);
-  Wire.write(txData, sizeof(txData));
+  Wire.write(txData, COMMAND_DATA_LENGTH);
   Wire.endTransmission();
+
   // wait for data conversion in sensor
   delay(50);
 
