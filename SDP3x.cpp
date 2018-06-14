@@ -17,14 +17,15 @@
 float SDP3xClass::getPressureDiff(void)
 {
   int16_t dp_ticks;
+  int16_t dp_scale;
   uint8_t readData[RESULT_DATA_LENGTH] = { 0 };
 
   readSensor(readData, RESULT_DATA_LENGTH);
   // merge chars to one int
   dp_ticks = BIU16(readData, 0);
-  // adapt scale factor according to datasheet (here for version SDP31)
-  float dp_scale = 60.0;
-  return dp_ticks/dp_scale;
+  dp_scale = BIU16(readData, 6);
+
+  return dp_ticks/(float)dp_scale;
 }
 
 /**********************************************************
