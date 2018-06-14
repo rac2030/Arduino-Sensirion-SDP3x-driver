@@ -8,11 +8,8 @@
 	#define COMMAND_DATA_LENGTH 2
 	#define RESULT_DATA_LENGTH 6
 
-	// SDP3x sensor I2C address
-	// The adress can be overwritten by defining SDP3x_I2C_ADDRESS in your sketch directly
-	#ifndef SDP3x_I2C_ADDRESS
-		#define SDP3x_I2C_ADDRESS 0x21
-	#endif
+	#define DEFAULT_SDP3X_I2C_ADDRESS  0x21
+	#define DEFAULT_SDP8XX_I2C_ADDRESS 0x25
 
 	// triggered mode with 50ms conversion time
 	typedef enum {
@@ -23,9 +20,15 @@
 	class SDP3xClass
 	{
 	  public:
+	  	SDP3xClass() : mI2CAddress(DEFAULT_SDP3X_I2C_ADDRESS) {}
+	  	void setI2CAddress(uint8_t i2cAddress);
+
 	  	uint8_t readSensor(uint8_t* readData, uint8_t size);
 	  	float getPressureDiff(void);
 	  	float getTemperature(void);
+
+	  private:
+	  	uint8_t mI2CAddress;
 	};
 
 	extern SDP3xClass SDP3x;

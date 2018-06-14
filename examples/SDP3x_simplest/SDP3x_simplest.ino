@@ -1,7 +1,5 @@
 #include <Wire.h>
 
-// To set a different I2C address, uncomment the define
-// #define SDP3x_I2C_ADDRESS 0x21
 #include "SDP3x.h"
 
 // Setup routine runs once when you press reset
@@ -10,6 +8,9 @@ void setup() {
 	Serial.begin(9600);
 	// Initialize I2C communication
 	Wire.begin();
+
+	// To set a different I2C address, uncomment the define
+	// SDP3x.setI2CAddress(0x25);
 }
 
 // the loop routine runs over and over again forever

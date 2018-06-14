@@ -19,6 +19,18 @@
  * Global Functions
  ******************************************************************************/
 
+
+ /******************************************************************************
+  * setI2CAddress
+  *  Changes I2C address
+  *
+  * @param i2cAddress - the I2C address to use
+  ******************************************************************************/
+ void SDP3xClass::setI2CAddress(uint8_t i2cAddress)
+ {
+   mI2CAddress = i2cAddress;
+ }
+
 /**********************************************************
  * getPressureDiff
  *  Gets the current Pressure Differential from the sensor.
@@ -72,7 +84,7 @@ uint8_t SDP3xClass::readSensor(uint8_t* readData, uint8_t size)
   uint8_t txData[COMMAND_DATA_LENGTH] =
     {SDP_MEASUREMENT_COMMAND_0, SDP_MEASUREMENT_COMMAND_1};
 
-  Wire.beginTransmission(SDP3x_I2C_ADDRESS);
+  Wire.beginTransmission(mI2CAddress);
   Wire.write(txData, COMMAND_DATA_LENGTH);
   Wire.endTransmission();
 
@@ -80,7 +92,7 @@ uint8_t SDP3xClass::readSensor(uint8_t* readData, uint8_t size)
   delay(50);
 
   // 2 bytes DP, 1 CRC, 2 bytes T, 1 CRC
-  Wire.requestFrom((uint8_t)SDP3x_I2C_ADDRESS, size);
+  Wire.requestFrom((uint8_t)mI2CAddress, size);
   rxByteCount = 0;
   while (Wire.available()) { // wait till all arrive
       readData[rxByteCount] = Wire.read();
