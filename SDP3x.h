@@ -5,6 +5,7 @@
 	#define BIU16(data, start) (((uint16_t)(data)[start]) << 8 | ((data)[start + 1]))
 
 	// data length of result from I2C
+	#define COMMAND_DATA_LENGTH 2
 	#define RESULT_DATA_LENGTH 6
 
 	// SDP3x sensor I2C address
