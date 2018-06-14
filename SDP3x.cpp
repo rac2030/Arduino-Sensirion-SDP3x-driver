@@ -56,11 +56,6 @@ float SDP3xClass::getTemperature(void)
 uint8_t SDP3xClass::readSensor(uint8_t* readData, uint8_t size)
 {
   uint8_t rxByteCount=0;
-  
-  // triggered mode with 50ms conversion time
-  const uint8_t SDP_MEASUREMENT_COMMAND_0 = 0x36;
-  const uint8_t SDP_MEASUREMENT_COMMAND_1 = 0x2F;
-  
   uint8_t txData[2] = {SDP_MEASUREMENT_COMMAND_0, SDP_MEASUREMENT_COMMAND_1};
 
   Wire.beginTransmission(SDP3x_I2C_ADDRESS);
