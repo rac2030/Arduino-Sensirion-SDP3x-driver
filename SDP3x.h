@@ -13,6 +13,7 @@
 		#define SDP3x_I2C_ADDRESS 0x21
 	#endif
 
+	// triggered mode with 50ms conversion time
 	typedef enum {
 	   SDP_MEASUREMENT_COMMAND_0 = 0x36,
 	   SDP_MEASUREMENT_COMMAND_1 = 0x2F
