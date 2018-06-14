@@ -10,7 +10,7 @@ As I first used a SDP610 and a library I found on github I adhered the style fro
 
 ## Compatibility
 This library is compatible with the following sensors:
-- SDP3x series: SDP31, SDP36, SDP37
+- SDP3x series: SDP31, SDP32, SDP36, SDP37
 - SDP8xx series: SDP800, SDP810, SDP806, SDP816
 
 To use it with the SDP800 series, please keep in mind that the I2C address
