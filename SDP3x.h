@@ -24,9 +24,7 @@
 	{
 	  public:
 	  	uint8_t readSensor(uint8_t* readData, uint8_t size);
-	  public:
 	  	float getPressureDiff(void);
-	  public:
 	  	float getTemperature(void);
 	};
 
