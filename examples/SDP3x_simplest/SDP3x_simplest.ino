@@ -9,7 +9,7 @@ void setup() {
 	// Initialize I2C communication
 	Wire.begin();
 
-	// To set a different I2C address, uncomment the define
+	// To set a different I2C address, uncomment the line below
 	// SDP3x.setI2CAddress(0x25);
 }
 
