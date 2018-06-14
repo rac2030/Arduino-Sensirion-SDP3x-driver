@@ -4,6 +4,17 @@
 #include "Arduino.h"
 #include "SDP3x.h"
 
+#define SDP_DEBUG
+
+#ifdef SDP_DEBUG
+#define DEBUG_PRINT(label, value) \
+  Serial.print(" ["); \
+  Serial.print(label); Serial.print(" = "); Serial.print(value); \
+  Serial.print("] ");
+
+#else
+#define DEBUG_PRINT(label, value)
+#endif
 /******************************************************************************
  * Global Functions
  ******************************************************************************/
