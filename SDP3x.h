@@ -6,7 +6,7 @@
 
 	// data length of result from I2C
 	#define COMMAND_DATA_LENGTH 2
-	#define RESULT_DATA_LENGTH 6
+	#define RESULT_DATA_LENGTH 9
 
 	#define DEFAULT_SDP3X_I2C_ADDRESS  0x21
 	#define DEFAULT_SDP8XX_I2C_ADDRESS 0x25
